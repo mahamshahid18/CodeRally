@@ -22,6 +22,9 @@ const btnStyles = {
 };
 
 const styles = theme => ({
+  title: {
+    paddingTop: '20px',
+  },
   root: {
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
@@ -119,7 +122,16 @@ class AddProjectModal extends Component {
   async handleSubmit() {
     const { renderSnackbar } = this.props;
     const {
-      showLinkError, showChatLinkError, showRepoLinkError, name, description, partners, tech, link, chatLink, repoLink,
+      showLinkError,
+      showChatLinkError,
+      showRepoLinkError,
+      name,
+      description,
+      partners,
+      tech,
+      link,
+      chatLink,
+      repoLink,
     } = this.state;
     if (showLinkError) {
       const snackbarText = SNACKBAR_LINK_ERROR;
@@ -161,7 +173,6 @@ class AddProjectModal extends Component {
       renderSnackbar({ snackbarText });
       this.handleClose();
     } catch (e) {
-      console.log('Failed to validate', e);
       this.setState({ loading: false });
       const snackbarText = SNACKBAR_FAILURE_MESSAGE;
       renderSnackbar({ snackbarText });
@@ -170,71 +181,112 @@ class AddProjectModal extends Component {
 
   render() {
     const {
-      name, description, partners, tech, link, chatLink, repoLink, showLinkError, showChatLinkError, showRepoLinkError, loading,
+      name,
+      description,
+      partners,
+      tech,
+      link,
+      chatLink,
+      repoLink,
+      showLinkError,
+      showChatLinkError,
+      showRepoLinkError,
+      loading,
     } = this.state;
     const { open, classes } = this.props;
     return (
       <span>
-        <Dialog
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
+        <Dialog open={open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
           <Grid container>
             <Grid item xs={12}>
-              <DialogTitle id="form-dialog-title" className={classes.root}>
-                <h4>List Project</h4>
+              <DialogTitle id="form-dialog-title" className={classes.title}>
+                List Project
                 {loading && <LinearProgress />}
               </DialogTitle>
             </Grid>
             <Grid item xs={12}>
               <DialogContent className={classes.root}>
-                <TextField fullWidth label="Project Name" value={name} onChange={this.handleNameChange} />
+                <TextField
+                  fullWidth
+                  label="Project Name"
+                  value={name}
+                  onChange={this.handleNameChange}
+                />
               </DialogContent>
             </Grid>
             <Grid item xs={12}>
               <DialogContent className={classes.root}>
-                <TextField fullWidth label="Description" value={description} onChange={this.handleDescriptionChange} />
+                <TextField
+                  fullWidth
+                  label="Description"
+                  value={description}
+                  onChange={this.handleDescriptionChange}
+                />
               </DialogContent>
             </Grid>
             <Grid item xs={12}>
               <DialogContent className={classes.root}>
-                <TextField fullWidth label="Tech Stack" value={tech} onChange={this.handleTechChange} />
+                <TextField
+                  fullWidth
+                  label="Tech Stack"
+                  value={tech}
+                  onChange={this.handleTechChange}
+                />
               </DialogContent>
             </Grid>
             <Grid item xs={12}>
               <DialogContent className={classes.root}>
-                <TextField fullWidth label="What partners are you looking for?" value={partners} onChange={this.handlePartnersChange} />
+                <TextField
+                  fullWidth
+                  label="What partners are you looking for?"
+                  value={partners}
+                  onChange={this.handlePartnersChange}
+                />
               </DialogContent>
             </Grid>
             <Grid item xs={12}>
               <DialogContent className={classes.root}>
-                <TextField error={showLinkError} helperText={showLinkError ? 'Please enter a valid https url' : ''} fullWidth label="Website" value={link} onChange={this.handleLinkChange} />
+                <TextField
+                  error={showLinkError}
+                  helperText={showLinkError ? 'Please enter a valid https url' : ''}
+                  fullWidth
+                  label="Website"
+                  value={link}
+                  onChange={this.handleLinkChange}
+                />
               </DialogContent>
             </Grid>
             <Grid item xs={12}>
               <DialogContent className={classes.root}>
-                <TextField error={showChatLinkError} helperText={showChatLinkError ? 'Please enter a valid https url' : ''} fullWidth label="Slack/Gitter" value={chatLink} onChange={this.handleChatLinkChange} />
+                <TextField
+                  error={showChatLinkError}
+                  helperText={showChatLinkError ? 'Please enter a valid https url' : ''}
+                  fullWidth
+                  label="Slack/Gitter"
+                  value={chatLink}
+                  onChange={this.handleChatLinkChange}
+                />
               </DialogContent>
             </Grid>
             <Grid item xs={12}>
               <DialogContent className={classes.root}>
-                <TextField error={showRepoLinkError} helperText={showRepoLinkError ? 'Please enter a valid github repo url' : ''} fullWidth label="Repo Link" value={repoLink} onChange={this.handleRepoLinkChange} />
+                <TextField
+                  error={showRepoLinkError}
+                  helperText={showRepoLinkError ? 'Please enter a valid github repo url' : ''}
+                  fullWidth
+                  label="Repo Link"
+                  value={repoLink}
+                  onChange={this.handleRepoLinkChange}
+                />
               </DialogContent>
             </Grid>
-            <Grid
-              item
-              container
-              xs={12}
-              justify="center"
-              alignItems="center"
-            >
+            <Grid item container xs={12} justify="center" alignItems="center">
               <DialogActions className={classes.root}>
                 <Button style={btnStyles} onClick={this.handleClose} className={classes.btnCancel}>
-                Cancel
+                  Cancel
                 </Button>
                 <Button style={btnStyles} onClick={this.handleSubmit} className={classes.button}>
-                Submit
+                  Submit
                 </Button>
               </DialogActions>
             </Grid>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import Chip from '@material-ui/core/Chip';
 import Hidden from '@material-ui/core/Hidden';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -13,10 +12,10 @@ import TableRow from '@material-ui/core/TableRow';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import deepPurple from '@material-ui/core/colors/deepPurple';
-import lightBlue from '@material-ui/core/colors/lightBlue';
 import grey from '@material-ui/core/colors/grey';
 import yellow from '@material-ui/core/colors/yellow';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import AddProjectModal from '../AddProjectModal/AddProjectModal';
 import AppService from '../../services/AppService';
 
@@ -37,6 +36,9 @@ const styles = theme => ({
     right: theme.spacing.unit * 2,
     position: 'absolute',
   },
+  tableWrapper: {
+    marginTop: '10px',
+  },
   tableHeader: {
     backgroundColor: grey[100],
   },
@@ -44,7 +46,15 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: grey[300],
     },
-    color: lightBlue[500],
+    color: deepPurple[700],
+  },
+  addButton: {
+    backgroundColor: deepPurple[700],
+    '&:hover': {
+      backgroundColor: deepPurple[800],
+    },
+    color: theme.palette.common.white,
+    margin: '0 10px',
   },
   chip: {
     backgroundColor: yellow[500],
@@ -82,7 +92,9 @@ class Home extends Component {
   async fetchProjects() {
     const projects = await AppService.getProjects();
     // sorting projects by earliest date created
-    this.setState({ projects: [...projects].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) });
+    this.setState({
+      projects: [...projects].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+    });
     this.setState({ initialProjects: projects });
     this.setState({ loadingProjects: false });
   }
@@ -120,14 +132,22 @@ class Home extends Component {
     const { classes } = this.props;
     return (
       <Paper className={classes.root}>
-        <TextField
-          label="Search"
-          className={classes.textField}
-          margin="normal"
-          style={{ marginLeft: '10px', width: '280px', marginBottom: '10px' }}
-          onChange={this.filterProjects}
-        />
-        <div>
+        <Grid container justify="space-between" alignItems="flex-end" spacing={0}>
+          <Hidden only={['xs', 'sm']}>
+            <Grid item>
+              <TextField
+                label="Search"
+                margin="normal"
+                style={{ marginLeft: '10px', width: '280px', marginBottom: '10px' }}
+                onChange={this.filterProjects}
+              />
+            </Grid>
+          </Hidden>
+          <Grid item>
+            <Button onClick={this.addProject} className={classes.addButton}>List a Project</Button>
+          </Grid>
+        </Grid>
+        <div className={classes.tableWrapper}>
           <Table className={classes.table}>
             <TableHead className={classes.tableHeader}>
               <TableRow>
@@ -144,33 +164,37 @@ class Home extends Component {
             </TableHead>
             {!loadingProjects && (
               <TableBody>
-                {
-                  projects.map(({
-                    name, description, tech, createdAt,
-                  }) => {
-                    const currentDate = new Date();
-                    const projectDate = new Date(createdAt);
-                    const timeDiff = Math.abs(currentDate.getTime() - projectDate.getTime());
-                    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                    return (
-                      <TableRow key={name}>
-                        {diffDays < 5
-                          ? (
-                            <TableCell>
-                              {name}
-                              <Chip className={classes.chip} label="NEW" />
-                            </TableCell>
-                          ) : <TableCell>{name}</TableCell>}
-                        <Hidden only={['xs', 'sm', 'md']}>
-                          <TableCell>{description}</TableCell>
-                        </Hidden>
-                        <Hidden only={['xs', 'sm']}>
-                          <TableCell>{tech}</TableCell>
-                        </Hidden>
-                        <TableCell><Button className={classes.button} href={`/projects/${name}`}>View</Button></TableCell>
-                      </TableRow>
-                    );
-                  })}
+                {projects.map(({
+                  name, description, tech, createdAt,
+                }) => {
+                  const currentDate = new Date();
+                  const projectDate = new Date(createdAt);
+                  const timeDiff = Math.abs(currentDate.getTime() - projectDate.getTime());
+                  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                  return (
+                    <TableRow key={name}>
+                      {diffDays < 5 ? (
+                        <TableCell>
+                          {name}
+                          <Chip className={classes.chip} label="NEW" />
+                        </TableCell>
+                      ) : (
+                        <TableCell>{name}</TableCell>
+                      )}
+                      <Hidden only={['xs', 'sm', 'md']}>
+                        <TableCell>{description}</TableCell>
+                      </Hidden>
+                      <Hidden only={['xs', 'sm']}>
+                        <TableCell>{tech}</TableCell>
+                      </Hidden>
+                      <TableCell>
+                        <Button className={classes.button} href={`/projects/${name}`}>
+                          View
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             )}
           </Table>
@@ -181,14 +205,10 @@ class Home extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     const { modalOpen, snackbarOpen, snackbarText } = this.state;
     return (
       <div>
         <div>{this.renderProjects()}</div>
-        <Button variant="fab" aria-label="Add" className={classes.icon} onClick={this.addProject}>
-          <AddIcon />
-        </Button>
         <AddProjectModal
           open={modalOpen}
           modalClosed={this.modalClosed}
@@ -204,11 +224,7 @@ class Home extends Component {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={(
-            <span id="message-id">
-              {snackbarText}
-            </span>
-            )}
+          message={<span id="message-id">{snackbarText}</span>}
         />
       </div>
     );

@@ -8,7 +8,6 @@ import 'react-typist/dist/Typist.css';
 
 const styles = theme => ({
   root: {
-    paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     textAlign: 'center',
     backgroundImage: 'url("assets/bg.png")',
@@ -18,21 +17,20 @@ const styles = theme => ({
     marginTop: '-64px',
     paddingTop: '20vh',
     boxSizing: 'border-box',
-    color: '#fff'
+    color: '#fff',
   },
   button: {
     backgroundColor: '#fff',
-    border: '2px solid ' + deepPurple[900],
+    border: `2px solid ${deepPurple[900]}`,
     color: deepPurple[900],
     '&:hover': {
       backgroundColor: '#fff',
       border: '2px solid #fff',
     },
-    padding: '15px',
     fontWeight: 'bold',
     borderRadius: '100px',
     fontSize: '1.2em',
-    padding: '15px 50px'
+    padding: '15px 50px',
   },
   typingItem: {
     color: '#fff',
@@ -48,17 +46,17 @@ const styles = theme => ({
   aboutUs: {
     marginTop: '50px',
     fontSize: '1em',
-    opacity: '.6'
+    opacity: '.6',
   },
   aboutUsTitle: {
-    fontSize: '2.2em'
+    fontSize: '2.2em',
   },
   attribution: {
     color: '#fff',
     fontSize: '10px',
     fontWeight: '200',
-    opacity: '.5'
-  }
+    opacity: '.5',
+  },
 });
 
 const techList = [
@@ -90,7 +88,7 @@ const LandingPage = ({ classes }) => (
         href="/home"
         className={classes.button}
       >
-        Get Started
+        See Projects
       </Button>
     </div>
     <div className={classes.aboutUs}>
@@ -108,9 +106,15 @@ const LandingPage = ({ classes }) => (
 
     <div>
       <small className={classes.attribution}>
-        Icons made by <a className={classes.attribution} href="http://www.freepik.com" title="Freepik">Freepik </a>
-        from <a className={classes.attribution} href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com </a>
-        is licensed by <a className={classes.attribution} href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY </a>
+        Icons made by
+        {' '}
+        <a className={classes.attribution} href="http://www.freepik.com" title="Freepik">Freepik </a>
+        from
+        {' '}
+        <a className={classes.attribution} href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com </a>
+        is licensed by
+        {' '}
+        <a className={classes.attribution} href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC 3.0 BY </a>
       </small>
     </div>
   </div>

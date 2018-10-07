@@ -1,0 +1,84 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 0 auto;
+    margin-top: 100px;
+    text-align: left;
+    transition: 0.3s;
+    padding: 10px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.title {
+    font-size: 1.75rem !important;
+    letter-spacing: 0.25px !important;
+    margin-bottom: 20px !important;
+    text-align: center !important;
+    color: #9f5afd !important;
+}
+
+.description {
+    margin-top: 25px!important;
+    margin-bottom: 35px !important;
+}
+
+.links-container {
+    margin: 20px 0px !important;
+    text-align: center;
+}
+
+.link-item {
+    margin: 0px 5px;
+    text-decoration: none;
+    padding: 2px 12px;
+    border-radius: 50px;
+    border: 1px solid gray;
+    color: #512da8;
+}
+
+.link-item:hover {
+    color: #3700b7;
+}
+
+.link-item.Website {
+    border: 2px solid #ff9478;
+}
+
+.link-item.Website:hover {
+    border: 3px solid #ff9478;
+}
+
+.link-item.Repo {
+    border: 2px solid #f64747;
+}
+
+.link-item.Repo:hover {
+    border: 3px solid #f64747;
+}
+
+.link-item.Chat {
+    border: 2px solid #f03434;
+}
+
+.link-item.Chat:hover {
+    border: 3px solid #f03434;
+}
+
+.chip-divider {
+    margin: 10px 0px !important;
+}
+
+.tech-container, .resources-container {
+    margin: 20px 0px !important;
+}
+
+.tech-title, .resources-title {
+    color: #231e1e !important;
+    font-weight: 500 !important;
+    font-size: 0.975rem !important;
+    text-transform: uppercase;
+    word-spacing: 1px;
+    letter-spacing: 0.25px;
+}

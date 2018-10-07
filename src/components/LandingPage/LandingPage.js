@@ -53,7 +53,7 @@ const LandingPage = ({ classes }) => (
       <span>Improve your </span>
       <Typist className={classes.typist}>
         {techList.map(({ tech, chars }) => (
-          <span>
+          <span key={tech}>
             <span className={classes.typingItem}>{tech}</span>
             <Typist.Backspace count={chars} delay={chars * 120} avgTypingDelay={120} />
           </span>

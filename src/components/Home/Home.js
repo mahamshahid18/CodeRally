@@ -19,7 +19,6 @@ import yellow from '@material-ui/core/colors/yellow';
 import TextField from '@material-ui/core/TextField';
 import AddProjectModal from '../AddProjectModal/AddProjectModal';
 import AppService from '../../services/AppService';
-import './Home.css';
 
 const styles = theme => ({
   root: {
@@ -38,8 +37,10 @@ const styles = theme => ({
     right: theme.spacing.unit * 2,
     position: 'absolute',
   },
+  tableHeader: {
+    backgroundColor: grey[100],
+  },
   button: {
-    backgroundColor: grey[200],
     '&:hover': {
       backgroundColor: grey[300],
     },
@@ -51,7 +52,7 @@ const styles = theme => ({
     marginLeft: 10,
     fontWeight: 'bold',
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2.5px 0 rgba(0, 0, 0, 0.19)',
-    height: '2.5em',
+    height: '2.0em',
     fontSize: '0.825em',
   },
 });
@@ -123,15 +124,15 @@ class Home extends Component {
           label="Search"
           className={classes.textField}
           margin="normal"
-          style={{ marginLeft: '12%', width: '280px', marginBottom: '20px' }}
+          style={{ marginLeft: '10px', width: '280px', marginBottom: '10px' }}
           onChange={this.filterProjects}
         />
-        <div class="table">
+        <div>
           <Table className={classes.table}>
-            <TableHead class="table_heading">
+            <TableHead className={classes.tableHeader}>
               <TableRow>
                 <TableCell id="col_name">Name</TableCell>
-                <Hidden only={['xs', 'sm']}>
+                <Hidden only={['xs', 'sm', 'md']}>
                   <TableCell>Description</TableCell>
                 </Hidden>
                 <Hidden only={['xs', 'sm']}>
@@ -152,7 +153,7 @@ class Home extends Component {
                     const timeDiff = Math.abs(currentDate.getTime() - projectDate.getTime());
                     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
                     return (
-                      <TableRow key={name} class="data_row">
+                      <TableRow key={name}>
                         {diffDays < 5
                           ? (
                             <TableCell>
@@ -160,7 +161,7 @@ class Home extends Component {
                               <Chip className={classes.chip} label="NEW" />
                             </TableCell>
                           ) : <TableCell>{name}</TableCell>}
-                        <Hidden only={['xs', 'sm']}>
+                        <Hidden only={['xs', 'sm', 'md']}>
                           <TableCell>{description}</TableCell>
                         </Hidden>
                         <Hidden only={['xs', 'sm']}>
@@ -173,8 +174,8 @@ class Home extends Component {
               </TableBody>
             )}
           </Table>
+          {loadingProjects && <LinearProgress />}
         </div>
-        {loadingProjects && <LinearProgress />}
       </Paper>
     );
   }
@@ -183,8 +184,8 @@ class Home extends Component {
     const { classes } = this.props;
     const { modalOpen, snackbarOpen, snackbarText } = this.state;
     return (
-      <div className="Home">
-        <div className="container">{this.renderProjects()}</div>
+      <div>
+        <div>{this.renderProjects()}</div>
         <Button variant="fab" aria-label="Add" className={classes.icon} onClick={this.addProject}>
           <AddIcon />
         </Button>

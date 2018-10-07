@@ -16,7 +16,7 @@ export default class App extends Component {
       <div>
         <Header />
         <Router>
-          <div className="app" style={{ marginTop: '64px' }}>
+          <div className="app" style={{ marginTop: '64px', height: '100vh' }}>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/projects/:name" component={Project} />

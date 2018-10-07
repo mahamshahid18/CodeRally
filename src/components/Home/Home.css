@@ -1,0 +1,21 @@
+.table_heading {
+	background: #ededed;
+}
+
+.table {
+	width: 75%;
+	margin-left: 12%;
+}
+
+.data_row {
+	transition: transform 0.5s;
+}
+
+.data_row:hover {
+	background: #f2f2f2;
+	transform: scale(1.01);
+}
+
+#col_name {
+	width: 20%;
+}

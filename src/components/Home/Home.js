@@ -19,6 +19,7 @@ import yellow from '@material-ui/core/colors/yellow';
 import TextField from '@material-ui/core/TextField';
 import AddProjectModal from '../AddProjectModal/AddProjectModal';
 import AppService from '../../services/AppService';
+import './Home.css';
 
 const styles = theme => ({
   root: {
@@ -47,7 +48,7 @@ const styles = theme => ({
   chip: {
     backgroundColor: yellow[500],
     color: grey[900],
-    marginLeft: 18,
+    marginLeft: 10,
     fontWeight: 'bold',
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2.5px 0 rgba(0, 0, 0, 0.19)',
     height: '2.5em',
@@ -122,55 +123,57 @@ class Home extends Component {
           label="Search"
           className={classes.textField}
           margin="normal"
-          style={{ marginLeft: '1em', width: '280px' }}
+          style={{ marginLeft: '12%', width: '280px', marginBottom: '20px' }}
           onChange={this.filterProjects}
         />
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <Hidden only={['xs', 'sm']}>
-                <TableCell>Description</TableCell>
-              </Hidden>
-              <Hidden only={['xs', 'sm']}>
-                <TableCell>Tech</TableCell>
-              </Hidden>
+        <div class="table">
+          <Table className={classes.table}>
+            <TableHead class="table_heading">
+              <TableRow>
+                <TableCell id="col_name">Name</TableCell>
+                <Hidden only={['xs', 'sm']}>
+                  <TableCell>Description</TableCell>
+                </Hidden>
+                <Hidden only={['xs', 'sm']}>
+                  <TableCell>Tech</TableCell>
+                </Hidden>
 
-              <TableCell>Project Page</TableCell>
-            </TableRow>
-          </TableHead>
-          {!loadingProjects && (
-            <TableBody>
-              {
-                projects.map(({
-                  name, description, tech, createdAt,
-                }) => {
-                  const currentDate = new Date();
-                  const projectDate = new Date(createdAt);
-                  const timeDiff = Math.abs(currentDate.getTime() - projectDate.getTime());
-                  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                  return (
-                    <TableRow key={name}>
-                      {diffDays < 5
-                        ? (
-                          <TableCell>
-                            {name}
-                            <Chip className={classes.chip} label="NEW" />
-                          </TableCell>
-                        ) : <TableCell>{name}</TableCell>}
-                      <Hidden only={['xs', 'sm']}>
-                        <TableCell>{description}</TableCell>
-                      </Hidden>
-                      <Hidden only={['xs', 'sm']}>
-                        <TableCell>{tech}</TableCell>
-                      </Hidden>
-                      <TableCell><Button className={classes.button} href={`/projects/${name}`}>View</Button></TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          )}
-        </Table>
+                <TableCell>Project Page</TableCell>
+              </TableRow>
+            </TableHead>
+            {!loadingProjects && (
+              <TableBody>
+                {
+                  projects.map(({
+                    name, description, tech, createdAt,
+                  }) => {
+                    const currentDate = new Date();
+                    const projectDate = new Date(createdAt);
+                    const timeDiff = Math.abs(currentDate.getTime() - projectDate.getTime());
+                    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                    return (
+                      <TableRow key={name} class="data_row">
+                        {diffDays < 5
+                          ? (
+                            <TableCell>
+                              {name}
+                              <Chip className={classes.chip} label="NEW" />
+                            </TableCell>
+                          ) : <TableCell>{name}</TableCell>}
+                        <Hidden only={['xs', 'sm']}>
+                          <TableCell>{description}</TableCell>
+                        </Hidden>
+                        <Hidden only={['xs', 'sm']}>
+                          <TableCell>{tech}</TableCell>
+                        </Hidden>
+                        <TableCell><Button className={classes.button} href={`/projects/${name}`}>View</Button></TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            )}
+          </Table>
+        </div>
         {loadingProjects && <LinearProgress />}
       </Paper>
     );

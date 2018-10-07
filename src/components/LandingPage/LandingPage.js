@@ -11,18 +11,31 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     textAlign: 'center',
+    backgroundImage: 'url("assets/bg.png")',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    minHeight: '100vh',
+    marginTop: '-64px',
+    paddingTop: '20vh',
+    boxSizing: 'border-box',
+    color: '#fff'
   },
   button: {
-    backgroundColor: deepPurple[700],
-    color: theme.palette.common.white,
+    backgroundColor: '#fff',
+    border: '2px solid ' + deepPurple[900],
+    color: deepPurple[900],
     '&:hover': {
-      backgroundColor: deepPurple[900],
+      backgroundColor: '#fff',
+      border: '2px solid #fff',
     },
     padding: '15px',
     fontWeight: 'bold',
+    borderRadius: '100px',
+    fontSize: '1.2em',
+    padding: '15px 50px'
   },
   typingItem: {
-    color: deepPurple[700],
+    color: '#fff',
     fontWeight: 'bold',
   },
   typist: {
@@ -30,12 +43,22 @@ const styles = theme => ({
   },
   improveSkillsTextBlock: {
     padding: '40px',
-    fontSize: '2em',
+    fontSize: '3em',
   },
   aboutUs: {
     marginTop: '50px',
-    fontSize: '1.2em',
+    fontSize: '1em',
+    opacity: '.6'
   },
+  aboutUsTitle: {
+    fontSize: '2.2em'
+  },
+  attribution: {
+    color: '#fff',
+    fontSize: '10px',
+    fontWeight: '200',
+    opacity: '.5'
+  }
 });
 
 const techList = [
@@ -67,11 +90,11 @@ const LandingPage = ({ classes }) => (
         href="/home"
         className={classes.button}
       >
-            Get Started
+        Get Started
       </Button>
     </div>
     <div className={classes.aboutUs}>
-      <h2>About Us</h2>
+      <h2 className={classes.aboutUsTitle}>About Us</h2>
       <p>
         CodeRally is a project listing board for developers by developers.
       </p>
@@ -81,6 +104,14 @@ const LandingPage = ({ classes }) => (
       <p>
         CodeRally gives you a simplified look at projects so you can pick a project easier.
       </p>
+    </div>
+
+    <div>
+      <small className={classes.attribution}>
+        Icons made by <a className={classes.attribution} href="http://www.freepik.com" title="Freepik">Freepik </a>
+        from <a className={classes.attribution} href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com </a>
+        is licensed by <a className={classes.attribution} href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY </a>
+      </small>
     </div>
   </div>
 );
